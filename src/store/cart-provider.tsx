@@ -23,10 +23,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
       window.localStorage.removeItem(STORAGE_KEY);
     }
 
-    return store.subscribe(
-      (state) => ({ items: state.items, favorites: state.favorites }),
-      (state) => window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state)),
-    );
+    return store.subscribe((state) => {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ items: state.items, favorites: state.favorites }));
+    });
   }, []);
 
   return <CartContext.Provider value={storeRef.current}>{children}</CartContext.Provider>;

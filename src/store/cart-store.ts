@@ -11,6 +11,14 @@ export type CartLine = {
 export type CartState = {
   items: CartLine[];
   favorites: string[];
+  quickAddFeedback: QuickAddFeedback | null;
+};
+
+export type QuickAddFeedback = {
+  id: number;
+  productId: string;
+  productName: string;
+  status: "adding" | "added";
 };
 
 export type CartActions = {
@@ -18,6 +26,9 @@ export type CartActions = {
   removeItem: (productId: string) => void;
   setQuantity: (productId: string, quantity: number) => void;
   toggleFavorite: (productId: string) => void;
+  setQuickAddFeedback: (feedback: QuickAddFeedback | null) => void;
+  completeQuickAddFeedback: (id: number) => void;
+  clearQuickAddFeedback: (id: number) => void;
   hydrate: (state: Partial<CartState>) => void;
 };
 
@@ -28,6 +39,7 @@ export const createCartStore = () =>
     subscribeWithSelector((set) => ({
       items: [],
       favorites: [],
+      quickAddFeedback: null,
       addItem: (product, quantity = 1, finish = product.finish) =>
         set((state) => {
           const existing = state.items.find(
@@ -60,6 +72,13 @@ export const createCartStore = () =>
             ? state.favorites.filter((id) => id !== productId)
             : [...state.favorites, productId],
         })),
+      setQuickAddFeedback: (quickAddFeedback) => set({ quickAddFeedback }),
+      completeQuickAddFeedback: (id) => set((state) => state.quickAddFeedback?.id === id
+        ? { quickAddFeedback: { ...state.quickAddFeedback, status: "added" } }
+        : state),
+      clearQuickAddFeedback: (id) => set((state) => state.quickAddFeedback?.id === id
+        ? { quickAddFeedback: null }
+        : state),
       hydrate: (state) => set({ items: state.items ?? [], favorites: state.favorites ?? [] }),
     })),
   );
