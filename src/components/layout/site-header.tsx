@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { ArrowRight, ArrowUpRight, Menu, Search, ShoppingBag, UserRound, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Heart, Menu, Search, ShoppingBag, UserRound, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/cart-provider";
 import { cn } from "@/lib/utils";
@@ -56,6 +56,7 @@ export function SiteHeader() {
 
         <div className="header-tools">
           <button className="header-tool search-trigger" type="button" aria-label={searchOpen ? "Close search" : "Search products"} aria-expanded={searchOpen} aria-controls="site-search-panel" onClick={() => setSearchOpen((open) => !open)}>{searchOpen ? <X size={18} strokeWidth={1.5} /> : <Search size={18} strokeWidth={1.5} />}<span>Search</span></button>
+          <Link className="header-tool wishlist-header-link" href="/wishlist" aria-label="Wishlist"><Heart size={18} strokeWidth={1.5} /></Link>
           <Link className="header-tool account-header-link" href="/account" aria-label="Your account"><UserRound size={18} strokeWidth={1.5} /><span>Account</span></Link>
           <Link className="header-tool bag-link" href="/cart" aria-label={`Shopping bag, ${itemCount} items`}>
             <ShoppingBag size={18} strokeWidth={1.5} /><span>Bag</span><span className="bag-count">({itemCount})</span>
@@ -80,6 +81,7 @@ export function SiteHeader() {
             <Link key={link.href} href={link.href} onClick={() => setMenuOpen(false)}>{link.label}<ArrowUpRight size={16} aria-hidden="true" /></Link>
           ))}
           <Link href="/account" onClick={() => setMenuOpen(false)}>Your account<UserRound size={16} aria-hidden="true" /></Link>
+          <Link href="/wishlist" onClick={() => setMenuOpen(false)}>Wishlist<Heart size={16} aria-hidden="true" /></Link>
           <Link href="/cart" onClick={() => setMenuOpen(false)}>Your bag ({itemCount})<ShoppingBag size={16} aria-hidden="true" /></Link>
         </nav>
       </header>

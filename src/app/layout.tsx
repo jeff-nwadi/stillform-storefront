@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Roboto } from "next/font/google";
 import { SiteHeader } from "@/components/layout/site-header";
 import { SiteFooter } from "@/components/layout/site-footer";
 import { SmoothScroll } from "@/components/layout/smooth-scroll";
@@ -7,11 +8,13 @@ import { CartProvider } from "@/store/cart-provider";
 import "./globals.css";
 import "lenis/dist/lenis.css";
 
+const roboto = Roboto({ subsets: ["latin"], weight: ["400", "500", "700"], variable: "--font-roboto", display: "swap" });
+
 export const metadata: Metadata = {
   title: { default: "Stillform — Considered living", template: "%s | Stillform" },
   description: "Thoughtful homewares and considered objects for everyday rituals.",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body><CartProvider><SmoothScroll><div className="site-shell"><SiteHeader /><main>{children}</main><SiteFooter /><QuickAddToast /></div></SmoothScroll></CartProvider></body></html>;
+  return <html lang="en" className={roboto.variable}><body><CartProvider><SmoothScroll><div className="site-shell"><SiteHeader /><main>{children}</main><SiteFooter /><QuickAddToast /></div></SmoothScroll></CartProvider></body></html>;
 }
