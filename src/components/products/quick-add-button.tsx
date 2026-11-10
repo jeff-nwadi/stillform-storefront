@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import { ArrowUpRight, Check, LoaderCircle } from "lucide-react";
-import { animate, createScope, stagger } from "animejs";
+import { animate, createScope, stagger, type Target } from "animejs";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/cart-provider";
 import type { Product } from "@/lib/products";
@@ -13,7 +13,7 @@ export function QuickAddButton({ product }: { product: Product }) {
   const setFeedback = useCartStore((state) => state.setQuickAddFeedback);
   const completeFeedback = useCartStore((state) => state.completeQuickAddFeedback);
   const clearFeedback = useCartStore((state) => state.clearQuickAddFeedback);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const buttonRef = useRef<HTMLSpanElement>(null);
   const isAdding = feedback?.productId === product.id && feedback.status === "adding";
   const isAdded = feedback?.productId === product.id && feedback.status === "added";
 
@@ -21,12 +21,12 @@ export function QuickAddButton({ product }: { product: Product }) {
     if (!isAdded || !buttonRef.current || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const scope = createScope({ root: buttonRef }).add(() => {
       animate(".quick-add-ribbon", {
-        y: ["-8px", "38px"],
-        x: (_target, index) => (index - 2) * 6,
-        rotate: [0, 170],
+        y: ["-14px", "54px"],
+        x: (_target: Target | undefined, index = 0) => (index - 4) * 22,
+        rotate: [-90, 270],
         opacity: [1, 0],
-        delay: stagger(35),
-        duration: 700,
+        delay: stagger(42),
+        duration: 880,
         ease: "in(2)",
       });
     });
@@ -44,10 +44,12 @@ export function QuickAddButton({ product }: { product: Product }) {
   };
 
   return (
-    <Button ref={buttonRef} className={`quick-add-button${isAdding ? " is-adding" : ""}${isAdded ? " is-added" : ""}`} variant="secondary" onClick={handleQuickAdd} aria-label={isAdding ? `Adding ${product.name} to bag` : isAdded ? `${product.name} added to bag` : `Add ${product.name} to bag`} aria-live="polite" disabled={isAdding}>
-      <span className="quick-add-label">{isAdding ? "Adding" : isAdded ? "Added" : "Quick add"}</span>
-      {isAdding ? <LoaderCircle className="quick-add-spinner" aria-hidden="true" /> : isAdded ? <Check aria-hidden="true" /> : <ArrowUpRight aria-hidden="true" />}
-      {isAdded && <span className="quick-add-ribbons" aria-hidden="true">{Array.from({ length: 5 }, (_, index) => <i className="quick-add-ribbon" key={index} />)}</span>}
-    </Button>
+    <span ref={buttonRef} className="quick-add-animation-root">
+      <Button className={`quick-add-button${isAdding ? " is-adding" : ""}${isAdded ? " is-added" : ""}`} variant="secondary" onClick={handleQuickAdd} aria-label={isAdding ? `Adding ${product.name} to bag` : isAdded ? `${product.name} added to bag` : `Add ${product.name} to bag`} aria-live="polite" disabled={isAdding}>
+        <span className="quick-add-label">{isAdding ? "Adding" : isAdded ? "Added" : "Quick add"}</span>
+        {isAdding ? <LoaderCircle className="quick-add-spinner" aria-hidden="true" /> : isAdded ? <Check aria-hidden="true" /> : <ArrowUpRight aria-hidden="true" />}
+        {isAdded && <span className="quick-add-ribbons" aria-hidden="true">{Array.from({ length: 9 }, (_, index) => <i className="quick-add-ribbon" key={index} />)}</span>}
+      </Button>
+    </span>
   );
 }

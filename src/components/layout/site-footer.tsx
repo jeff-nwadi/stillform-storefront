@@ -40,7 +40,7 @@ export function SiteFooter() {
         </div>
         <div className="footer-column"><h3>Explore</h3><Link href="/shop?category=Furniture">Furniture</Link><Link href="/shop?category=Lighting">Lighting</Link><Link href="/shop?category=Objects">Objects &amp; textiles</Link><Link href="/shop?sort=new">New arrivals</Link></div>
         <div className="footer-column"><h3>Help &amp; information</h3><Link href="/shipping">Delivery &amp; returns</Link><Link href="/care">Care guide</Link><Link href="/faq">FAQs</Link><Link href="/contact">Contact us</Link></div>
-        <div className="footer-column"><h3>Follow along</h3><a href="https://www.instagram.com/" target="_blank" rel="noreferrer">Instagram <ArrowRight aria-hidden="true" /></a><a href="https://www.pinterest.com/" target="_blank" rel="noreferrer">Pinterest <ArrowRight aria-hidden="true" /></a><Link href="/our-story">Our journal</Link></div>
+        <div className="footer-column"><h3>Follow along</h3><a href="https://www.instagram.com/" target="_blank" rel="noreferrer">Instagram <ArrowRight aria-hidden="true" /></a><a href="https://www.pinterest.com/" target="_blank" rel="noreferrer">Pinterest <ArrowRight aria-hidden="true" /></a><Link href="/journal">Our journal</Link></div>
       </div>
 
       <div className="footer-legal">
