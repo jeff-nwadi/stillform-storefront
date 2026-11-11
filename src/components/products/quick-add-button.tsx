@@ -43,12 +43,38 @@ export function QuickAddButton({ product }: { product: Product }) {
     setTimeout(() => clearFeedback(id), 2200);
   };
 
+  const label = isAdding ? "Adding" : isAdded ? "Added" : "Quick add";
+  const buttonLabel = isAdding
+    ? `Adding ${product.name} to bag`
+    : isAdded
+      ? `${product.name} added to bag`
+      : `Add ${product.name} to bag`;
+
   return (
     <span ref={buttonRef} className="quick-add-animation-root">
-      <Button className={`quick-add-button${isAdding ? " is-adding" : ""}${isAdded ? " is-added" : ""}`} variant="secondary" onClick={handleQuickAdd} aria-label={isAdding ? `Adding ${product.name} to bag` : isAdded ? `${product.name} added to bag` : `Add ${product.name} to bag`} aria-live="polite" disabled={isAdding}>
-        <span className="quick-add-label">{isAdding ? "Adding" : isAdded ? "Added" : "Quick add"}</span>
-        {isAdding ? <LoaderCircle className="quick-add-spinner" aria-hidden="true" /> : isAdded ? <Check aria-hidden="true" /> : <ArrowUpRight aria-hidden="true" />}
-        {isAdded && <span className="quick-add-ribbons" aria-hidden="true">{Array.from({ length: 9 }, (_, index) => <i className="quick-add-ribbon" key={index} />)}</span>}
+      <Button
+        className={`quick-add-button${isAdding ? " is-adding" : ""}${isAdded ? " is-added" : ""}`}
+        variant="secondary"
+        onClick={handleQuickAdd}
+        aria-label={buttonLabel}
+        aria-live="polite"
+        disabled={isAdding}
+      >
+        <span className="quick-add-label">{label}</span>
+        {isAdding ? (
+          <LoaderCircle className="quick-add-spinner" aria-hidden="true" />
+        ) : isAdded ? (
+          <Check aria-hidden="true" />
+        ) : (
+          <ArrowUpRight aria-hidden="true" />
+        )}
+        {isAdded && (
+          <span className="quick-add-ribbons" aria-hidden="true">
+            {Array.from({ length: 9 }, (_, index) => (
+              <i className="quick-add-ribbon" key={index} />
+            ))}
+          </span>
+        )}
       </Button>
     </span>
   );

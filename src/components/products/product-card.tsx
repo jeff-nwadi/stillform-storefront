@@ -17,11 +17,29 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
   return (
     <article className="product-card" style={{ "--card-index": index } as React.CSSProperties}>
       <div className="product-card-image-wrap">
-        <Link className="product-card-image-link" href={`/products/${product.slug}`} aria-label={`View ${product.name}`}>
-          <Image className="product-card-image" src={product.image} alt={product.alt} fill sizes="(max-width: 640px) 80vw, (max-width: 1000px) 45vw, 25vw" unoptimized />
+        <Link
+          className="product-card-image-link"
+          href={`/products/${product.slug}`}
+          aria-label={`View ${product.name}`}
+        >
+          <Image
+            className="product-card-image"
+            src={product.image}
+            alt={product.alt}
+            fill
+            sizes="(max-width: 640px) 80vw, (max-width: 1000px) 45vw, 25vw"
+            unoptimized
+          />
         </Link>
         {product.badge && <span className="product-badge">{product.badge}</span>}
-        <Button className={cn("favorite-button", isFavorite && "is-favorite")} variant="ghost" size="icon" aria-label={isFavorite ? `Remove ${product.name} from favorites` : `Add ${product.name} to favorites`} aria-pressed={isFavorite} onClick={() => toggleFavorite(product.id)}>
+        <Button
+          className={cn("favorite-button", isFavorite && "is-favorite")}
+          variant="ghost"
+          size="icon"
+          aria-label={isFavorite ? `Remove ${product.name} from favorites` : `Add ${product.name} to favorites`}
+          aria-pressed={isFavorite}
+          onClick={() => toggleFavorite(product.id)}
+        >
           <Heart aria-hidden="true" fill={isFavorite ? "currentColor" : "none"} />
         </Button>
         <QuickAddButton product={product} />
@@ -36,5 +54,11 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
 }
 
 export function ProductGrid({ products }: { products: Product[] }) {
-  return <div className="product-grid">{products.map((product, index) => <ProductCard key={product.id} product={product} index={index} />)}</div>;
+  return (
+    <div className="product-grid">
+      {products.map((product, index) => (
+        <ProductCard key={product.id} product={product} index={index} />
+      ))}
+    </div>
+  );
 }

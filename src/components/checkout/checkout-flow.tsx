@@ -33,7 +33,6 @@ export function CheckoutFlow() {
     <div className="checkout-page">
       <div className="checkout-topline">
         <Link href="/cart" className="checkout-back"><ArrowLeft size={15} /> Return to bag</Link>
-        <Link href="/" className="checkout-wordmark" aria-label="Stillform home">STILLFORM</Link>
         <span className="checkout-secure"><LockKeyhole size={14} /> Secure checkout</span>
       </div>
 

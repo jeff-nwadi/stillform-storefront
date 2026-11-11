@@ -46,29 +46,106 @@ export function AuthForm() {
       </section>
 
       <section className="account-panel">
-        <Link className="account-wordmark" href="/" aria-label="Stillform home">STILLFORM</Link>
+        <Link className="account-wordmark" href="/" aria-label="Stillform home">
+          STILLFORM
+        </Link>
         <div className="account-form-wrap">
           <span className="eyebrow">Your Stillform account</span>
           <h1>{isSignIn ? "Welcome back." : "Make yourself at home."}</h1>
-          <p className="account-intro">{isSignIn ? "Sign in to revisit your saved pieces and orders." : "Create an account to keep your favorites close."}</p>
+          <p className="account-intro">
+            {isSignIn
+              ? "Sign in to revisit your saved pieces and orders."
+              : "Create an account to keep your favorites close."}
+          </p>
 
           <div className="account-mode-switch" role="tablist" aria-label="Account access">
-            <button type="button" role="tab" aria-selected={isSignIn} className={isSignIn ? "active" : ""} onClick={() => changeMode("sign-in")}>Sign in</button>
-            <button type="button" role="tab" aria-selected={!isSignIn} className={!isSignIn ? "active" : ""} onClick={() => changeMode("create-account")}>Create account</button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={isSignIn}
+              className={isSignIn ? "active" : ""}
+              onClick={() => changeMode("sign-in")}
+            >
+              Sign in
+            </button>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={!isSignIn}
+              className={!isSignIn ? "active" : ""}
+              onClick={() => changeMode("create-account")}
+            >
+              Create account
+            </button>
           </div>
 
           <form className="account-form" onSubmit={handleSubmit}>
-            {!isSignIn && <label className="account-field"><span>Full name</span><Input name="name" type="text" autoComplete="name" placeholder="Your name" required /></label>}
-            <label className="account-field"><span>Email address</span><Input name="email" type="email" autoComplete="email" placeholder="you@example.com" required /></label>
-            <label className="account-field"><span>Password</span><span className="password-input-wrap"><Input name="password" type={showPassword ? "text" : "password"} autoComplete={isSignIn ? "current-password" : "new-password"} placeholder="At least 8 characters" minLength={8} required /><button className="password-visibility" type="button" aria-label={showPassword ? "Hide password" : "Show password"} onClick={() => setShowPassword((visible) => !visible)}>{showPassword ? <EyeOff size={18} /> : <Eye size={18} />}</button></span></label>
-            {isSignIn ? <div className="account-options"><label className="account-remember"><input name="remember" type="checkbox" /> <span>Keep me signed in</span></label><button className="account-text-button" type="button" onClick={() => setNotice("Password reset will be available once sign-in is connected.")}>Forgot password?</button></div> : <p className="account-terms">Your account will keep your saved pieces and order details together.</p>}
-            <Button className="account-submit" type="submit">{isSignIn ? "Sign in" : "Create account"}<ArrowRight size={16} aria-hidden="true" /></Button>
+            {!isSignIn && (
+              <label className="account-field">
+                <span>Full name</span>
+                <Input name="name" type="text" autoComplete="name" placeholder="Your name" required />
+              </label>
+            )}
+            <label className="account-field">
+              <span>Email address</span>
+              <Input name="email" type="email" autoComplete="email" placeholder="you@example.com" required />
+            </label>
+            <label className="account-field">
+              <span>Password</span>
+              <span className="password-input-wrap">
+                <Input
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  autoComplete={isSignIn ? "current-password" : "new-password"}
+                  placeholder="At least 8 characters"
+                  minLength={8}
+                  required
+                />
+                <button
+                  className="password-visibility"
+                  type="button"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  onClick={() => setShowPassword((visible) => !visible)}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </span>
+            </label>
+
+            {isSignIn ? (
+              <div className="account-options">
+                <label className="account-remember">
+                  <input name="remember" type="checkbox" />
+                  <span>Keep me signed in</span>
+                </label>
+                <button
+                  className="account-text-button"
+                  type="button"
+                  onClick={() => setNotice("Password reset will be available once sign-in is connected.")}
+                >
+                  Forgot password?
+                </button>
+              </div>
+            ) : (
+              <p className="account-terms">
+                Your account will keep your saved pieces and order details together.
+              </p>
+            )}
+
+            <Button className="account-submit" type="submit">
+              {isSignIn ? "Sign in" : "Create account"}
+              <ArrowRight size={16} aria-hidden="true" />
+            </Button>
             {notice && <p className="account-notice" role="status">{notice}</p>}
           </form>
 
-          <p className="account-help">New to Stillform? <Link href="/our-story">Our story</Link></p>
+          <p className="account-help">
+            New to Stillform? <Link href="/our-story">Our story</Link>
+          </p>
         </div>
-        <Link href="/shop" className="account-back-link">Continue browsing <ArrowRight size={15} aria-hidden="true" /></Link>
+        <Link href="/shop" className="account-back-link">
+          Continue browsing <ArrowRight size={15} aria-hidden="true" />
+        </Link>
       </section>
     </main>
   );

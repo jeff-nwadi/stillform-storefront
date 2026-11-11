@@ -48,10 +48,10 @@ export const createCartStore = () =>
           return {
             items: existing
               ? state.items.map((line) =>
-                  line.product.id === product.id && line.finish === finish
-                    ? { ...line, quantity: line.quantity + quantity }
-                    : line,
-                )
+                line.product.id === product.id && line.finish === finish
+                  ? { ...line, quantity: line.quantity + quantity }
+                  : line,
+              )
               : [...state.items, { product, quantity, finish }],
           };
         }),
@@ -63,8 +63,8 @@ export const createCartStore = () =>
             quantity < 1
               ? state.items.filter((line) => line.product.id !== productId)
               : state.items.map((line) =>
-                  line.product.id === productId ? { ...line, quantity } : line,
-                ),
+                line.product.id === productId ? { ...line, quantity } : line,
+              ),
         })),
       toggleFavorite: (productId) =>
         set((state) => ({

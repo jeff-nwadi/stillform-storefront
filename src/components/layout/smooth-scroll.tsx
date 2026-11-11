@@ -1,14 +1,30 @@
 "use client";
 
 import { ReactLenis } from "lenis/react";
-import { useEffect, useState, type ReactNode } from "react";
+import { useSyncExternalStore, type ReactNode } from "react";
+
+const REDUCED_MOTION_QUERY = "(prefers-reduced-motion: reduce)";
+
+function subscribeToMotionPreference(onChange: () => void) {
+  const mediaQuery = window.matchMedia(REDUCED_MOTION_QUERY);
+  mediaQuery.addEventListener("change", onChange);
+  return () => mediaQuery.removeEventListener("change", onChange);
+}
+
+function getSmoothScrollSnapshot() {
+  return !window.matchMedia(REDUCED_MOTION_QUERY).matches;
+}
+
+function getServerSmoothScrollSnapshot() {
+  return false;
+}
 
 export function SmoothScroll({ children }: { children: ReactNode }) {
-  const [enabled, setEnabled] = useState(false);
-
-  useEffect(() => {
-    setEnabled(!window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-  }, []);
+  const enabled = useSyncExternalStore(
+    subscribeToMotionPreference,
+    getSmoothScrollSnapshot,
+    getServerSmoothScrollSnapshot,
+  );
 
   if (!enabled) return children;
 

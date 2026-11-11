@@ -23,7 +23,7 @@ export function SiteFooter() {
         <div className="footer-newsletter-copy">
           <p className="eyebrow eyebrow-accent">A note from Stillform</p>
           <h2>Make space for good things.</h2>
-          <p>New collections, thoughtful interiors and occasional notes from our world.</p>
+          <p>New collections, thoughtful interiors and <br /> occasional notes from our world.</p>
         </div>
         <form className="newsletter-form" onSubmit={handleSubscribe}>
           <label className="sr-only" htmlFor="newsletter-email">Your email address</label>
