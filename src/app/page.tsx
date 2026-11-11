@@ -30,7 +30,7 @@ export default function HomePage() {
         <div className="eyebrow">Considered living · Est. 2024</div>
         <h2>Objects for a life<br /><em>well lived.</em></h2>
         <p>Thoughtful pieces for slower mornings, long dinners and all the little rituals in between.</p>
-        <Link href="/our-story" className="text-link">
+        <Link href="/our-story" className="text-link ">
           A little about us <ArrowDownRight size={16} />
         </Link>
       </section>

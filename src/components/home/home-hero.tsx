@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 import { animate, createScope, stagger } from "animejs";
 import { Button } from "@/components/ui/button";
 
@@ -100,7 +100,7 @@ export function HomeHero() {
         <p className="hero-description hero-reveal">Natural textures, thoughtful forms and pieces that make everyday living feel considered.</p>
         <div className="hero-actions hero-reveal">
           <Button asChild><Link href="/shop">Shop the collection <ArrowRight aria-hidden="true" /></Link></Button>
-          <Link className="text-link" href="/our-story">Our approach <ArrowUpRight aria-hidden="true" /></Link>
+          <Link className="text-link" href="/our-story">Our approach </Link>
         </div>
       </div>
     </section>

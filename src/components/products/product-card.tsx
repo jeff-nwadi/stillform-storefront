@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import type { Ref } from "react";
 import { Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { QuickAddButton } from "@/components/products/quick-add-button";
@@ -23,13 +24,24 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
           aria-label={`View ${product.name}`}
         >
           <Image
-            className="product-card-image"
+            className="product-card-image product-card-image-primary"
             src={product.image}
             alt={product.alt}
             fill
             sizes="(max-width: 640px) 80vw, (max-width: 1000px) 45vw, 25vw"
             unoptimized
           />
+          {product.hoverImage && (
+            <Image
+              className="product-card-image product-card-image-secondary"
+              src={product.hoverImage}
+              alt=""
+              aria-hidden="true"
+              fill
+              sizes="(max-width: 640px) 80vw, (max-width: 1000px) 45vw, 25vw"
+              unoptimized
+            />
+          )}
         </Link>
         {product.badge && <span className="product-badge">{product.badge}</span>}
         <Button
@@ -53,9 +65,15 @@ export function ProductCard({ product, index = 0 }: { product: Product; index?: 
   );
 }
 
-export function ProductGrid({ products }: { products: Product[] }) {
+type ProductGridProps = {
+  products: Product[];
+  className?: string;
+  containerRef?: Ref<HTMLDivElement>;
+};
+
+export function ProductGrid({ products, className, containerRef }: ProductGridProps) {
   return (
-    <div className="product-grid">
+    <div ref={containerRef} className={cn("product-grid", className)}>
       {products.map((product, index) => (
         <ProductCard key={product.id} product={product} index={index} />
       ))}
