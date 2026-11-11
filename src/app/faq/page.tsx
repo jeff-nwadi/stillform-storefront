@@ -14,6 +14,16 @@ const questions = [
 
 export default function FaqPage() {
   return <InfoPage eyebrow="Here to help" title="Frequently asked questions" intro="A few useful details about the collection, delivery, and this storefront." >
-    <div className="faq-list">{questions.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div>
+    <div className="mt-4 border-t border-line">
+      {questions.map(([question, answer]) => (
+        <details className="group border-b border-line" key={question}>
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-5 px-[2px] py-5 font-serif text-[22px] leading-[1.25] font-normal max-md:px-0 max-md:py-[17px] max-md:text-[19px] max-sm:text-[16px] [&::-webkit-details-marker]:hidden">
+            {question}
+            <span className="font-sans text-[22px] leading-[normal] text-[#7d867f] transition-transform duration-200 group-open:rotate-45" aria-hidden="true">+</span>
+          </summary>
+          <p className="mb-0! max-w-[680px] pr-[30px] pb-[21px] pl-[2px]">{answer}</p>
+        </details>
+      ))}
+    </div>
   </InfoPage>;
 }

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { InfoPage, InfoSection } from "@/components/content/info-page";
+import { infoFootnote, InfoPage, InfoSection, policyNote } from "@/components/content/info-page";
 
 export const metadata: Metadata = { title: "Terms" };
 
@@ -10,7 +10,7 @@ export default function TermsPage() {
       title="Terms of use"
       intro="These notes describe the current Stillform storefront preview."
     >
-      <p className="policy-preview-note">
+      <p className={policyNote}>
         This is not a final set of terms for a live store. No orders or payments can currently be
         submitted through this site.
       </p>
@@ -40,7 +40,7 @@ export default function TermsPage() {
           policies should be published before live ordering becomes available.
         </p>
       </InfoSection>
-      <p className="info-page-footnote">Last updated November 10, 2026.</p>
+      <p className={infoFootnote}>Last updated November 10, 2026.</p>
     </InfoPage>
   );
 }

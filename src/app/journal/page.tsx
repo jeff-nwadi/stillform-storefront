@@ -3,6 +3,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { InfoPage } from "@/components/content/info-page";
+import { cn } from "@/lib/utils";
+import { eyebrow, textLink } from "@/lib/styles";
 
 type JournalStory = {
   category: string;
@@ -49,11 +51,12 @@ export default function JournalPage() {
       title="The Stillform journal"
       intro="Thoughts on considered living, the makers behind the details, and the rituals that make a home your own."
     >
-      <div className="journal-grid">
+      <div className="grid grid-cols-3 gap-[23px] pt-[35px] max-md:grid-cols-[1fr] max-md:gap-[34px] max-md:pt-[25px]">
         {stories.map((story) => (
-          <article className="journal-card" key={story.title}>
-            <Link className="journal-image" href={story.href}>
+          <article className="group min-w-0" key={story.title}>
+            <Link className="relative mb-5 block aspect-[.9] overflow-hidden bg-[#e2e0d8] max-md:aspect-[1.08]" href={story.href}>
               <Image
+                className="[transition:scale_.65s_cubic-bezier(.2,.7,.2,1)] group-hover:scale-[1.035]"
                 src={`https://images.unsplash.com/${story.image}?auto=format&fit=crop&w=900&q=85`}
                 alt={story.alt}
                 fill
@@ -61,10 +64,10 @@ export default function JournalPage() {
                 unoptimized
               />
             </Link>
-            <span className="eyebrow">{story.category}</span>
-            <h2>{story.title}</h2>
-            <p>{story.copy}</p>
-            <Link href={story.href} className="text-link">
+            <span className={cn(eyebrow, "mb-[11px]")}>{story.category}</span>
+            <h2 className="mb-[10px] font-serif text-[28px] leading-[1.1] font-normal max-sm:text-[23px]">{story.title}</h2>
+            <p className="min-h-12 text-[13px] max-md:min-h-0">{story.copy}</p>
+            <Link href={story.href} className={cn(textLink, "mt-[3px] text-[11px]")}>
               Explore the collection <ArrowUpRight size={15} />
             </Link>
           </article>

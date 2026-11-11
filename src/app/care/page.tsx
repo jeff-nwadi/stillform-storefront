@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { InfoPage, InfoSection } from "@/components/content/info-page";
+import { infoFootnote, InfoPage, InfoSection } from "@/components/content/info-page";
 
 export const metadata: Metadata = { title: "Care guide" };
 
@@ -37,7 +37,7 @@ export default function CarePage() {
           glass with a damp lint-free cloth, then dry to prevent water marks.
         </p>
       </InfoSection>
-      <p className="info-page-footnote">
+      <p className={infoFootnote}>
         These are general care notes. Always follow the instructions included with your specific
         piece.
       </p>

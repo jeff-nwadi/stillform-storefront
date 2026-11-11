@@ -20,8 +20,8 @@ export function ProductImageGallery({ product }: { product: Product }) {
   const activeImage = images[activeImageIndex] ?? images[0];
 
   return (
-    <div className="product-detail-gallery">
-      <div className="product-detail-image">
+    <div className="flex min-w-0 flex-col gap-3 max-sm:mx-[-5.5%]">
+      <div className="relative aspect-[.92] overflow-hidden bg-[#e2e0d8] max-sm:aspect-[.9]">
         <Image
           src={activeImage.src}
           alt={activeImage.alt}
@@ -33,10 +33,10 @@ export function ProductImageGallery({ product }: { product: Product }) {
       </div>
 
       {images.length > 1 && (
-        <div className="product-detail-thumbnails" role="group" aria-label="Product images">
+        <div className="grid grid-cols-[repeat(2,minmax(0,82px))] gap-[9px] max-sm:px-[5.5%]" role="group" aria-label="Product images">
           {images.map((image, index) => (
             <button
-              className="product-detail-thumbnail"
+              className="relative aspect-square cursor-pointer overflow-hidden border border-transparent bg-[#e2e0d8] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink aria-pressed:border-ink"
               key={image.src}
               type="button"
               aria-label={`Show ${product.name}, image ${index + 1}`}

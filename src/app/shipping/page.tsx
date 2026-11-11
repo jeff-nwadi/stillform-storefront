@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { InfoPage, InfoSection } from "@/components/content/info-page";
+import { InfoPage, InfoSection, policyNote } from "@/components/content/info-page";
 
 export const metadata: Metadata = { title: "Delivery & returns" };
 
@@ -11,7 +11,7 @@ export default function ShippingPage() {
       title="Delivery & returns"
       intro="A little more about how your Stillform pieces make their way home."
     >
-      <p className="policy-preview-note">
+      <p className={policyNote}>
         This storefront is currently a preview. Orders and shipping are not yet connected, so no
         purchase or shipment can be placed from this site.
       </p>

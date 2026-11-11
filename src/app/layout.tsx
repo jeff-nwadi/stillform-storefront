@@ -23,11 +23,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html lang="en" className={roboto.variable}>
-      <body>
+    <html lang="en" className={`${roboto.variable} scroll-smooth`}>
+      <body className="bg-paper text-[16px] leading-[1.55] text-ink antialiased">
         <CartProvider>
           <SmoothScroll>
-            <div className="site-shell">
+            {/* The account page is a full-height split layout, so it hides the footer. */}
+            <div className="min-h-screen [&:has([data-account-page])>footer]:hidden">
               <SiteHeader />
               <main>{children}</main>
               <SiteFooter />

@@ -12,20 +12,20 @@ export function ShopPageMotion({ children, transitionKey }: { children: ReactNod
 
     scope.current?.revert();
     scope.current = createScope({ root }).add(() => {
-      animate(".shop-page .results-bar", {
+      animate("[data-results-bar]", {
         opacity: [0, 1],
         y: [8, 0],
         duration: 420,
         ease: "out(3)",
       });
-      animate(".shop-page .product-card", {
+      animate("[data-product-card]", {
         opacity: [0, 1],
         y: [18, 0],
         delay: stagger(65, { from: "first" }),
         duration: 560,
         ease: "out(3)",
       });
-      animate(".shop-page .shop-categories a.active", {
+      animate("[data-shop-categories] a[data-active]", {
         opacity: [0.65, 1],
         y: [3, 0],
         duration: 360,

@@ -48,5 +48,5 @@ export function StoryPageMotion({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  return <div ref={root} className="story-page-motion">{children}</div>;
+  return <div ref={root}>{children}</div>;
 }

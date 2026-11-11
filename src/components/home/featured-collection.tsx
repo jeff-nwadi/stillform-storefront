@@ -6,6 +6,11 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { animate } from "animejs";
 import { ProductGrid } from "@/components/products/product-card";
 import { products } from "@/lib/products";
+import { cn } from "@/lib/utils";
+import { eyebrow, sectionHeading, sectionHeadingLink, sectionHeadingTitle, textLink } from "@/lib/styles";
+
+const carouselButton =
+  "grid size-8 min-h-8 min-w-8 flex-[0_0_32px] cursor-pointer place-items-center rounded-[3px] border border-line bg-transparent text-ink transition-[background-color,color,border-color] duration-200 hover:border-ink hover:bg-ink hover:text-ivory focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-ink [&_svg]:size-[15px]";
 
 const featuredOrder = ["miro-vase", "sora-lamp", "field-throw"];
 const featuredProducts = products
@@ -39,7 +44,7 @@ export function FeaturedCollection() {
     }
 
     const carouselBounds = carousel.getBoundingClientRect();
-    const cardElements = Array.from(carousel.querySelectorAll<HTMLElement>(".product-card"));
+    const cardElements = Array.from(carousel.querySelectorAll<HTMLElement>("[data-product-card]"));
     const incomingCards = cardElements.filter((card) => {
       const bounds = card.getBoundingClientRect();
       const cardStart = bounds.left - carouselBounds.left + start;
@@ -65,34 +70,33 @@ export function FeaturedCollection() {
   }
 
   return (
-    <section className="section collection-section">
-      <div className="section-heading">
+    <section className="px-[7.2%] pt-[53px] pb-[110px] max-sm:px-[6%] max-sm:pt-5 max-sm:pb-[75px]">
+      <div className={cn(sectionHeading, "max-sm:flex-wrap max-sm:gap-[18px]")}>
         <div>
-          <span className="eyebrow">A quieter kind of everyday</span>
-          <h2>New & noteworthy</h2>
+          <span className={eyebrow}>A quieter kind of everyday</span>
+          <h2 className={sectionHeadingTitle}>New & noteworthy</h2>
         </div>
-        <div className="featured-carousel-actions">
-          <Link href="/shop" className="text-link">
+        <div className="ml-auto flex items-center gap-5 max-sm:w-full max-sm:justify-between">
+          <Link href="/shop" className={cn(textLink, sectionHeadingLink)}>
             View all pieces <ArrowRight size={16} />
           </Link>
-          <div className="featured-carousel-controls" aria-label="Carousel controls">
-            <button type="button" aria-label="Previous products" onClick={() => scrollCarousel(-1)}>
+          <div className="flex items-center gap-[6px]" aria-label="Carousel controls">
+            <button className={carouselButton} type="button" aria-label="Previous products" onClick={() => scrollCarousel(-1)}>
               <ArrowLeft size={18} aria-hidden="true" />
             </button>
-            <button type="button" aria-label="Next products" onClick={() => scrollCarousel(1)}>
+            <button className={carouselButton} type="button" aria-label="Next products" onClick={() => scrollCarousel(1)}>
               <ArrowRight size={18} aria-hidden="true" />
             </button>
           </div>
         </div>
       </div>
       <div
-        className="featured-carousel"
         role="region"
         aria-roledescription="carousel"
         aria-label="New and noteworthy products"
       >
         <ProductGrid
-          className="featured-carousel-track"
+          variant="carousel"
           products={featuredProducts}
           containerRef={carouselRef}
         />

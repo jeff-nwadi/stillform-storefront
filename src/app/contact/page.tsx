@@ -12,9 +12,9 @@ export default function ContactPage() {
       title="Contact"
       intro="Questions about a piece, a material, or the Stillform point of view? Leave us a note."
     >
-      <div className="contact-layout">
-        <div className="contact-copy">
-          <h2>A thoughtful reply, soon.</h2>
+      <div className="grid grid-cols-[.8fr_1.2fr] gap-[8%] pt-[25px] max-md:grid-cols-[1fr] max-md:gap-[23px] max-md:pt-5">
+        <div className="[&_p]:text-[14px]">
+          <h2 className="mb-4 font-serif text-[28px] leading-[1.15] font-normal max-sm:text-[21px]">A thoughtful reply, soon.</h2>
           <p>
             Choose a topic and share a few details. Our contact form is a visual preview and is not
             connected to a mail service yet.

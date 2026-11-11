@@ -7,6 +7,7 @@ import { animate, createScope, stagger } from "animejs";
 import { Button } from "@/components/ui/button";
 import { useCartStore } from "@/store/cart-provider";
 import { cn } from "@/lib/utils";
+import { eyebrow } from "@/lib/styles";
 import { products } from "@/lib/products";
 
 const links = [
@@ -15,6 +16,13 @@ const links = [
   { label: "Objects", href: "/shop?category=Objects" },
   { label: "Our story", href: "/our-story" },
 ];
+
+const desktopLink =
+  "font-serif text-[15px] tracking-[.025em] transition-opacity duration-200 hover:opacity-[.58] max-lg:text-[12px]";
+const headerTool =
+  "flex items-center gap-[7px] text-[15px] tracking-[.025em] transition-opacity duration-200 hover:opacity-[.58] max-sm:[&_svg]:w-[19px]";
+const mobileLink =
+  "flex justify-between border-b border-line py-[14px] font-serif text-[22px] will-change-[transform,opacity]";
 
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -39,7 +47,7 @@ export function SiteHeader() {
     if (previousMenuOpen.current === menuOpen) return;
     previousMenuOpen.current = menuOpen;
     const navigation = headerRef.current?.querySelector<HTMLElement>("#mobile-navigation");
-    const icon = headerRef.current?.querySelector<HTMLElement>(".mobile-menu-icon");
+    const icon = headerRef.current?.querySelector<HTMLElement>("[data-menu-icon]");
     if (!navigation || !icon) return;
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -116,22 +124,22 @@ export function SiteHeader() {
 
   return (
     <>
-      <div className="announcement-bar">
+      <div className="flex h-8 items-center justify-center gap-[13px] bg-ink text-[11px] tracking-[.07em] text-[#e9e9e4] max-sm:hidden">
         <span>Complimentary shipping on orders over $150</span>
-        <span className="announcement-divider">·</span>
-        <Link href="/shop">Discover the new collection <ArrowUpRight aria-hidden="true" size={12} /></Link>
+        <span className="text-[#87908b]">·</span>
+        <Link className="flex items-center gap-1" href="/shop">Discover the new collection <ArrowUpRight aria-hidden="true" size={12} /></Link>
       </div>
-      {announcementOpen && <div className="announcement-modal-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) dismissAnnouncement(); }}>
-        <section className="announcement-modal" role="dialog" aria-modal="true" aria-labelledby="announcement-modal-title">
-          <button className="announcement-modal-close" type="button" aria-label="Close announcement" onClick={dismissAnnouncement}><X size={18} /></button>
-          <p className="eyebrow">A little extra, on us</p>
-          <h2 id="announcement-modal-title">Complimentary shipping on orders over $150</h2>
-          <Link href="/shop" className="announcement-modal-link" onClick={dismissAnnouncement}>Discover the new collection <ArrowUpRight aria-hidden="true" size={14} /></Link>
+      {announcementOpen && <div className="fixed inset-0 z-50 hidden items-center justify-center bg-[rgba(19,27,29,.48)] p-6 backdrop-blur-[3px] max-sm:flex" onMouseDown={(event) => { if (event.target === event.currentTarget) dismissAnnouncement(); }}>
+        <section className="relative w-[min(380px,100%)] animate-modal-in bg-paper px-[30px] pt-[38px] pb-8 text-center text-ink shadow-[0_24px_70px_#10171440] motion-reduce:animate-none" role="dialog" aria-modal="true" aria-labelledby="announcement-modal-title">
+          <button className="absolute top-3 right-3 grid size-9 cursor-pointer place-items-center" type="button" aria-label="Close announcement" onClick={dismissAnnouncement}><X size={18} /></button>
+          <p className={cn(eyebrow, "my-[1em]")}>A little extra, on us</p>
+          <h2 className="mt-[15px] mb-[22px] font-serif text-[30px] leading-[1.12] font-normal max-sm:text-[23px]" id="announcement-modal-title">Complimentary shipping on orders over $150</h2>
+          <Link href="/shop" className="inline-flex items-center gap-2 border-b border-[#9ca29d] pb-[5px] text-[11px] tracking-[.06em] uppercase" onClick={dismissAnnouncement}>Discover the new collection <ArrowUpRight aria-hidden="true" size={14} /></Link>
         </section>
       </div>}
-      <header className="site-header" ref={headerRef}>
+      <header className="relative z-5 grid h-[73px] grid-cols-[1fr_2fr_1fr] items-center border-b border-[rgba(30,43,49,.08)] bg-paper px-[5.4%] max-lg:grid-cols-[1fr_1fr_1fr] max-lg:px-[4%] max-sm:h-16 max-sm:grid-cols-[28px_minmax(0,1fr)_auto] max-sm:gap-2 max-sm:px-[5%]" ref={headerRef}>
         <Button
-          className="mobile-menu-trigger"
+          className="hidden max-sm:-ml-2 max-sm:inline-flex max-sm:size-9 max-sm:min-h-9"
           variant="ghost"
           size="icon"
           aria-label={menuOpen ? "Close navigation" : "Open navigation"}
@@ -145,44 +153,44 @@ export function SiteHeader() {
             }
           }}
         >
-          <span className="mobile-menu-icon" aria-hidden="true">{menuOpen ? <X /> : <Menu />}</span>
+          <span className="inline-flex origin-center items-center justify-center will-change-transform" data-menu-icon aria-hidden="true">{menuOpen ? <X /> : <Menu />}</span>
         </Button>
 
-        <Link className="wordmark" href="/" aria-label="Stillform home">STILLFORM</Link>
+        <Link className="justify-self-start font-serif text-[17px] font-medium tracking-[.2em] max-sm:text-[15px]" href="/" aria-label="Stillform home">STILLFORM</Link>
 
-        <nav className="desktop-navigation" aria-label="Main navigation">
-          {links.map((link) => <Link key={link.href} href={link.href}>{link.label}</Link>)}
+        <nav className="flex items-center justify-center gap-10 max-lg:gap-[19px] max-sm:hidden" aria-label="Main navigation">
+          {links.map((link) => <Link className={desktopLink} key={link.href} href={link.href}>{link.label}</Link>)}
         </nav>
 
-        <div className="header-tools">
-          <button className="header-tool search-trigger" type="button" aria-label={searchOpen ? "Close search" : "Search products"} aria-expanded={searchOpen} aria-controls="site-search-panel" onClick={() => setSearchOpen((open) => !open)}>{searchOpen ? <X size={18} strokeWidth={1.5} /> : <Search size={18} strokeWidth={1.5} />}<span>Search</span></button>
-          <Link className="header-tool wishlist-header-link" href="/wishlist" aria-label="Wishlist"><Heart size={18} strokeWidth={1.5} /></Link>
-          <Link className="header-tool account-header-link" href="/account" aria-label="Your account"><UserRound size={18} strokeWidth={1.5} /><span>Account</span></Link>
-          <Link className="header-tool bag-link" href="/cart" aria-label={`Shopping bag, ${itemCount} items`}>
-            <ShoppingBag size={18} strokeWidth={1.5} /><span>Bag</span><span className="bag-count">({itemCount})</span>
+        <div className="flex justify-end gap-[25px] max-sm:gap-3">
+          <button className={cn(headerTool, "cursor-pointer")} type="button" aria-label={searchOpen ? "Close search" : "Search products"} aria-expanded={searchOpen} aria-controls="site-search-panel" onClick={() => setSearchOpen((open) => !open)}>{searchOpen ? <X size={18} strokeWidth={1.5} /> : <Search size={18} strokeWidth={1.5} />}<span className="max-sm:hidden">Search</span></button>
+          <Link className={cn(headerTool, "max-sm:hidden")} href="/wishlist" aria-label="Wishlist"><Heart size={18} strokeWidth={1.5} /></Link>
+          <Link className={cn(headerTool, "max-sm:hidden")} href="/account" aria-label="Your account"><UserRound size={18} strokeWidth={1.5} /><span>Account</span></Link>
+          <Link className={headerTool} href="/cart" aria-label={`Shopping bag, ${itemCount} items`}>
+            <ShoppingBag size={18} strokeWidth={1.5} /><span className="max-sm:hidden">Bag</span><span className="text-muted">({itemCount})</span>
           </Link>
         </div>
 
-        {searchOpen && <div className="site-search-panel" id="site-search-panel">
-          <form action="/shop" method="get" className="site-search-form">
+        {searchOpen && <div className="absolute top-full right-[5.4%] z-12 w-[min(470px,90vw)] border border-line bg-ivory p-[15px] shadow-[0_18px_38px_#1e2b3118] max-sm:right-[4%] max-sm:w-[92%]" id="site-search-panel">
+          <form action="/shop" method="get" className="grid grid-cols-[20px_1fr_34px] items-center gap-[10px] border-b border-[#aeb5ae] px-[2px] pb-[11px] text-[#778078]">
             <Search size={18} aria-hidden="true" />
             <label className="sr-only" htmlFor="site-search-input">Search products</label>
-            <input id="site-search-input" ref={searchInput} name="search" type="search" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} onKeyDown={(event) => { if (event.key === "Escape") setSearchOpen(false); }} placeholder="Search pieces, materials, finishes…" autoComplete="off" />
-            <button type="submit" aria-label="View search results"><ArrowRight size={18} /></button>
+            <input className="h-9 w-full bg-transparent px-[2px] text-[14px] leading-[normal] text-ink outline-none placeholder:text-[#8b938d]" id="site-search-input" ref={searchInput} name="search" type="search" value={searchQuery} onChange={(event) => setSearchQuery(event.target.value)} onKeyDown={(event) => { if (event.key === "Escape") setSearchOpen(false); }} placeholder="Search pieces, materials, finishes…" autoComplete="off" />
+            <button className="grid size-[34px] cursor-pointer place-items-center bg-ink text-white" type="submit" aria-label="View search results"><ArrowRight size={18} /></button>
           </form>
-          {query ? <div className="site-search-suggestions" aria-live="polite">
-            {suggestions.length ? suggestions.map((product) => <Link href={`/products/${product.slug}`} key={product.id} onClick={() => setSearchOpen(false)}><span><strong>{product.name}</strong><small>{product.category} · {product.material}</small></span><ArrowRight size={15} aria-hidden="true" /></Link>) : <p>No pieces match “{searchQuery.trim()}”.</p>}
-            <Link className="site-search-all" href={`/shop?search=${encodeURIComponent(searchQuery.trim())}`} onClick={() => setSearchOpen(false)}>See all results for “{searchQuery.trim()}” <ArrowRight size={14} /></Link>
-          </div> : <p className="site-search-hint">Try “lighting”, “stoneware”, or “linen”.</p>}
+          {query ? <div className="pt-[7px]" aria-live="polite">
+            {suggestions.length ? suggestions.map((product) => <Link className="flex items-center justify-between gap-3 border-b border-[#e3e5e0] px-[3px] py-[11px]" href={`/products/${product.slug}`} key={product.id} onClick={() => setSearchOpen(false)}><span className="flex flex-col gap-[3px]"><strong className="text-[13px] font-medium">{product.name}</strong><small className="text-[11px] text-[#818982]">{product.category} · {product.material}</small></span><ArrowRight size={15} aria-hidden="true" /></Link>) : <p className="mx-[2px] mt-3 mb-[2px] text-[12px] text-[#818982]">No pieces match “{searchQuery.trim()}”.</p>}
+            <Link className="mt-[10px] flex items-center justify-between gap-[10px] px-[3px] py-2 text-[12px] text-[#58665d]" href={`/shop?search=${encodeURIComponent(searchQuery.trim())}`} onClick={() => setSearchOpen(false)}>See all results for “{searchQuery.trim()}” <ArrowRight size={14} /></Link>
+          </div> : <p className="mx-[2px] mt-3 mb-[2px] text-[12px] text-[#818982]">Try “lighting”, “stoneware”, or “linen”.</p>}
         </div>}
 
-        <nav id="mobile-navigation" className={cn("mobile-navigation", menuOpen && "is-open")} aria-label="Mobile navigation" hidden={!menuVisible}>
+        <nav id="mobile-navigation" className="absolute inset-x-0 top-16 hidden flex-col bg-paper px-[6%] pt-3 pb-[23px] shadow-[0_14px_20px_#1e2b3110] max-sm:flex" aria-label="Mobile navigation" hidden={!menuVisible}>
           {links.map((link) => (
-            <Link key={link.href} href={link.href} onClick={closeMobileMenu}>{link.label}<ArrowUpRight size={16} aria-hidden="true" /></Link>
+            <Link className={mobileLink} key={link.href} href={link.href} onClick={closeMobileMenu}>{link.label}<ArrowUpRight size={16} aria-hidden="true" /></Link>
           ))}
-          <Link href="/account" onClick={closeMobileMenu}>Your account<UserRound size={16} aria-hidden="true" /></Link>
-          <Link href="/wishlist" onClick={closeMobileMenu}>Wishlist<Heart size={16} aria-hidden="true" /></Link>
-          <Link href="/cart" onClick={closeMobileMenu}>Your bag ({itemCount})<ShoppingBag size={16} aria-hidden="true" /></Link>
+          <Link className={mobileLink} href="/account" onClick={closeMobileMenu}>Your account<UserRound size={16} aria-hidden="true" /></Link>
+          <Link className={mobileLink} href="/wishlist" onClick={closeMobileMenu}>Wishlist<Heart size={16} aria-hidden="true" /></Link>
+          <Link className={mobileLink} href="/cart" onClick={closeMobileMenu}>Your bag ({itemCount})<ShoppingBag size={16} aria-hidden="true" /></Link>
         </nav>
       </header>
     </>

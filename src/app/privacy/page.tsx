@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { InfoPage, InfoSection } from "@/components/content/info-page";
+import { infoFootnote, InfoPage, InfoSection, policyNote } from "@/components/content/info-page";
 
 export const metadata: Metadata = { title: "Privacy" };
 
@@ -10,7 +10,7 @@ export default function PrivacyPage() {
       title="Privacy notice"
       intro="A plain-language explanation of what this Stillform storefront preview does with information."
     >
-      <p className="policy-preview-note">
+      <p className={policyNote}>
         This page describes the current demo storefront, not a final production privacy policy.
         Review and update it before collecting customer information or launching live commerce.
       </p>
@@ -44,7 +44,7 @@ export default function PrivacyPage() {
           message service yet.
         </p>
       </InfoSection>
-      <p className="info-page-footnote">Last updated November 10, 2026.</p>
+      <p className={infoFootnote}>Last updated November 10, 2026.</p>
     </InfoPage>
   );
 }
